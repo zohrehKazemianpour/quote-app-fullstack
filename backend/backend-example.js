@@ -3,6 +3,7 @@ import cors from "cors";
 
 
 const app = express();
+app.use(express.json());
 
 const port = 3000;
 
@@ -31,21 +32,11 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  const bodyBytes = [];
-  req.on("data", (chunk) => bodyBytes.push(...chunk));
-  req.on("end", () => {
-    const bodyString = String.fromCharCode(...bodyBytes);
-    let body;
-    try {
-      body = JSON.parse(bodyString);
-    } catch (error) {
-      console.error(`Failed to parse body ${bodyString} as JSON: ${error}`);
-      res.status(400).send("Expected body to be JSON.");
-      return;
-    }
+  const body = req.body;
+  
     if (typeof body != "object" || !("quote" in body) || !("author" in body)) {
       console.error(
-        `Failed to extract quote and author from post body: ${bodyString}`
+        `Failed to extract quote and author from post body: ${body}`
       );
       res
         .status(400)
@@ -60,7 +51,6 @@ app.post("/", (req, res) => {
     });
     res.send("ok");
   });
-});
 
 app.listen(port, () => {
   console.error(`Quote server listening on port ${port}`);
