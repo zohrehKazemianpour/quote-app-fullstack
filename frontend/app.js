@@ -5,18 +5,22 @@ const initialView = document.getElementById("initial-view");
 const quoteView = document.getElementById("quote-view");
 const startBtn = document.getElementById("start-btn");
 const newQuoteBtn = document.getElementById("new-quote");
+const userInputText = document.getElementById("new-quote-text");
+const userInputAuthor = document.getElementById("new-quote-author");
+const quoteForm = document.getElementById("quote-form"); 
+const submissionStatus = document.getElementById("submit-status");
+
+
 
 function switchToQuoteView() {
   initialView.style.display = "none";
   quoteView.style.display = "block";
 }
+
 function showFirstQuote() {
   switchToQuoteView();
   getQuotes()
 }
-
-
-
 
 startBtn.addEventListener("click", showFirstQuote);
 newQuoteBtn.addEventListener("click", getQuotes);
@@ -35,9 +39,32 @@ async function getQuotes () {
       console.error("Fetch error:", error);
     }
 
-  
-
-
 }
 
+quoteForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
+  const userQuote = userInputText.value.trim();
+  const userAuthor = userInputAuthor.value.trim();
+
+  if (!userQuote || !userAuthor) {
+    submissionStatus.textContent = "Both fields are required.";
+    return;
+  }
+
+  const res = await fetch("http://localhost:3000/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ quote: userQuote, author: userAuthor }),
+  });
+
+  if (res.ok) {
+    submissionStatus.textContent = "Your quote is now in the collection.!";
+    userInputText.value = "";
+    userInputAuthor.value = "";
+  } else {
+    submissionStatus.textContent = "Something went wrong.";
+  }
+});
