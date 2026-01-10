@@ -29,7 +29,9 @@ async function getQuotes () {
     quotesP.innerText = "Loading inspiration...";
     authorP.innerText = "";
     try {
-      const res = await fetch("http://127.0.0.1:3000/");
+      const res = await fetch(
+        "https://zohreh-quote-generator-backend.hosting.codeyourfuture.io"
+      );
       const data = await res.json();
       quotesP.innerText = data.quote;
       authorP.innerText = `- ${data.author}`;
@@ -52,13 +54,16 @@ quoteForm.addEventListener("submit", async (e) => {
     return;
   }
 
-  const res = await fetch("http://localhost:3000/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ quote: userQuote, author: userAuthor }),
-  });
+  const res = await fetch(
+    "https://zohreh-quote-generator-backend.hosting.codeyourfuture.io",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ quote: userQuote, author: userAuthor }),
+    }
+  );
 
   if (res.ok) {
     submissionStatus.textContent = "Your quote is now in the collection.!";
