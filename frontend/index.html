@@ -19,7 +19,7 @@
           Would you like to get inspired by the great minds? Press the button to
           generate a quote!
         </div>
-        <button type="button" id="start-btn">Get Inspired</button>
+        <button type="button" id="start-btn" class="custom-button">Get Inspired</button>
       </div>
       <div id="quote-view" style="display: none">
         <p>
@@ -31,15 +31,19 @@
         </div>
       </div>
     </div>
-<h3>Add a New Quote</h3>
+    <div id="form-container">
+      <h3>Add a New Quote</h3>
 <form id="quote-form">
   <label for="new-quote-text">content</label>
-  <input type="text" id="new-quote-text" placeholder="Enter the quote here..." required>
+  <input type="text" id="new-quote-text" class="custom-input" placeholder="Enter the quote here..." required>
   
   <label for="new-quote-author">source</label>
-  <input type="text" id="new-quote-author" placeholder="Author's name" required>
-  <button type="submit">Submit</button>
+  <input type="text" id="new-quote-author" class="custom-input" placeholder="Author's name" required>
+  <button type="submit" class="custom-button">Submit</button>
   <p id="submit-status"></p>
 </form>
+
+    </div>
+
   </body>
 </html>
