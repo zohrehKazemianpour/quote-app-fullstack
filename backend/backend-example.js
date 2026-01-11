@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import {quotes} from "./quotes.js"
 
 
 const app = express();
@@ -7,17 +8,7 @@ app.use(express.json());
 
 const port = 3000;
 
-const quotes = [
-  {
-    quote:
-      "Either write something worth reading or do something worth writing.",
-    author: "Benjamin Franklin",
-  },
-  {
-    quote: "I should have been more kind.",
-    author: "Clive James",
-  },
-];
+
 
 function randomQuote() {
   const index = Math.floor(Math.random() * quotes.length);
